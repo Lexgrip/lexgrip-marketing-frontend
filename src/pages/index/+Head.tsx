@@ -1,7 +1,7 @@
 export default function Head() {
-  const title = "LexGrip - AI Vocabulary Flashcards for Language Learners";
+  const title = "LexGrip - Language Flashcards That Actually Work";
   const description =
-    "Ask AI to generate vocabulary flashcards for the language, topic, or situation you want to practice. Definitions, pronunciation, and example sentences in seconds.";
+    "Learn a language with AI-generated flashcards, spaced repetition, and a tutor that helps when you get stuck. Free to start.";
 
   return (
     <>
@@ -44,10 +44,10 @@ export default function Head() {
           },
           featureList: [
             "AI-generated vocabulary flashcards",
-            "Definitions and example sentences",
-            "Phonetic pronunciation",
-            "Interactive study mode",
-            "Prompt-based practice",
+            "Spaced repetition reviews",
+            "AI tutor explanations",
+            "Custom study decks",
+            "Streaks and daily goals",
           ],
         })}
       </script>

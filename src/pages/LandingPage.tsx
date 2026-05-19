@@ -204,16 +204,15 @@ export default function LandingPage() {
                   Free to start · No credit card needed
                 </div>
                 <h1 className="text-5xl font-bold leading-tight tracking-tight text-gray-900 md:text-6xl">
-                  Learn vocabulary.
+                  The language app
                   <br />
-                  <span className="text-emerald-500">From your ideas.</span>
+                  <span className="text-emerald-500">that remembers you.</span>
                 </h1>
                 <p className="mt-6 text-lg leading-relaxed text-gray-500 max-w-lg">
-                  Tell Lexgrip what language you are learning and what you want
-                  to practice, from travel phrases to everyday small talk. AI
-                  turns your prompt into focused flashcards with meanings,
-                  pronunciation, and example sentences so you can start studying
-                  right away.
+                  Most apps treat every session like the first one. Lexgrip
+                  knows what you practiced yesterday, where you stumble, and
+                  what you're working toward. The longer you use it, the better
+                  it gets at teaching you.
                 </p>
                 <div className="mt-8 flex flex-wrap gap-4">
                   <a
@@ -230,7 +229,7 @@ export default function LandingPage() {
                   </a>
                 </div>
                 <p className="mt-4 text-xs text-gray-400">
-                  10 card generations included on the free plan.
+                  10 new words per day on the free plan. No credit card required.
                 </p>
               </div>
 
@@ -317,37 +316,50 @@ export default function LandingPage() {
                 How it works
               </p>
               <h2 className="text-3xl font-bold text-gray-900 md:text-4xl">
-                Three steps. Start studying in under a minute.
+                Four steps to actually learning a language.
               </h2>
             </div>
 
             <ol
-              className="grid gap-6 md:grid-cols-3"
+              className="grid gap-6 md:grid-cols-2 lg:grid-cols-4"
               aria-label="Steps to get started"
             >
               {[
                 {
                   n: "1",
-                  title: "Sign up",
-                  desc: "Create your free account and choose the language you want to study. No placement test, setup, or credit card required.",
+                  title: "Pick your language",
+                  desc: "Start with Spanish, German, French, or whichever language you're learning. More languages rolling out.",
                 },
                 {
                   n: "2",
-                  title: "Generate cards",
-                  desc: "Choose a topic or describe your scenario. Then generate 3 custom vocabulary cards with definitions, pronunciation, and real examples.",
+                  title: "Build your vocabulary",
+                  desc: "Browse real-world scenarios — ordering coffee, talking to a doctor, negotiating a lease — and add the words you need. Or describe what you want and let AI find the right cards.",
                 },
                 {
                   n: "3",
-                  title: "Study and flip",
-                  desc: "Browse your card deck, tap a card to open it, and flip between the word and its definition at your own pace.",
+                  title: "Study with spaced repetition",
+                  desc: "Cards come back exactly when you're about to forget them. Built on FSRS, the most effective spaced repetition algorithm available.",
+                },
+                {
+                  n: "4",
+                  title: "Practice with your tutor",
+                  desc: "Coming soon: real conversations with an AI tutor that knows your vocabulary, corrects your mistakes, and remembers what you've covered.",
+                  soon: true,
                 },
               ].map((step) => (
                 <li
                   key={step.n}
                   className="rounded-2xl bg-white border border-gray-100 p-7 shadow-sm"
                 >
-                  <div className="w-9 h-9 rounded-full bg-emerald-500 flex items-center justify-center text-white font-bold text-sm mb-5">
-                    {step.n}
+                  <div className="flex items-center gap-2 mb-5">
+                    <div className="w-9 h-9 rounded-full bg-emerald-500 flex items-center justify-center text-white font-bold text-sm">
+                      {step.n}
+                    </div>
+                    {"soon" in step && step.soon && (
+                      <span className="text-xs bg-emerald-50 text-emerald-600 font-semibold px-2.5 py-1 rounded-full">
+                        Coming soon
+                      </span>
+                    )}
                   </div>
                   <h3 className="text-lg font-semibold text-gray-900 mb-2">
                     {step.title}
@@ -367,35 +379,31 @@ export default function LandingPage() {
                 Features
               </p>
               <h2 className="text-3xl font-bold text-gray-900 md:text-4xl">
-                Everything you need to build vocabulary fast.
+                Built for serious learners.
               </h2>
             </div>
 
             <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
               {[
                 {
-                  title: "AI-generated cards",
-                  desc: "Ask for the language, topic, or situation you want to practice and get a useful set of cards back in seconds.",
+                  title: "Scenario-based vocabulary",
+                  desc: "Browse real-world situations — the doctor's office, a job interview, a lease negotiation — and study words you'll actually use.",
                 },
                 {
-                  title: "Prompt-based practice",
-                  desc: "Generate cards around exactly what you need, whether that is a trip, a restaurant order, a work meeting, or your own custom scenario.",
+                  title: "Spaced repetition (FSRS)",
+                  desc: "Cards come back exactly when you're about to forget them. Built on FSRS, the most effective algorithm available.",
                 },
                 {
-                  title: "Interactive flip cards",
-                  desc: "Tap a card to flip between the word and its definition. Smooth 3D animation, no friction.",
+                  title: "Pronunciation audio",
+                  desc: "Every card includes audio so you learn how words actually sound, not just how they're spelled.",
                 },
                 {
-                  title: "Slide through your deck",
-                  desc: "Swipe or click through your full card set without leaving the study view.",
+                  title: "AI tutor with memory",
+                  desc: "Coming soon: have real conversations with a tutor that knows your vocabulary, corrects your mistakes, and never forgets what you've covered.",
                 },
                 {
                   title: "Free to start",
-                  desc: "10 card generations per month are included on the free plan. No credit card required.",
-                },
-                {
-                  title: "Coming soon",
-                  desc: "Connect your own API key and unlock unlimited studying.",
+                  desc: "10 new words per day on the free plan. Bring your own API key for unlimited generations.",
                 },
               ].map((f) => (
                 <article
@@ -459,8 +467,13 @@ export default function LandingPage() {
                 Pricing
               </p>
               <h2 className="text-3xl font-bold text-gray-900 md:text-4xl">
-                Simple. Start free.
+                Founder pricing. 500 spots.
               </h2>
+              <p className="mt-4 text-gray-500 text-base leading-7">
+                Lexgrip is in early access. The first 500 founding members get a
+                permanent deal — same price, forever, even as we raise rates for
+                everyone else.
+              </p>
             </div>
 
             <div className="grid gap-6 md:grid-cols-3 max-w-5xl">
@@ -474,11 +487,11 @@ export default function LandingPage() {
 
                 <ul className="space-y-3 text-sm text-gray-600 mb-8">
                   {[
-                    "10 card generations per month",
-                    "Flip card study mode",
-                    "Phonetic pronunciation",
-                    "Example sentences",
-                    "Upgrade anytime",
+                    "10 new words per day",
+                    "All scenarios and curated content",
+                    "Spaced repetition built in",
+                    "Pronunciation audio",
+                    "Unlimited study of cards in the library",
                   ].map((f) => (
                     <li key={f} className="flex items-center gap-2.5">
                       <div className="w-4 h-4 rounded-full bg-emerald-100 flex items-center justify-center">
@@ -497,68 +510,35 @@ export default function LandingPage() {
                 </a>
               </div>
 
-              {/* BYO API (NEW) */}
-              <div className="rounded-2xl border border-emerald-100 bg-emerald-50 p-8 shadow-sm">
-                <p className="text-sm font-semibold text-emerald-600 uppercase tracking-wide mb-2">
-                  Power User
-                </p>
-                <p className="text-4xl font-bold text-gray-900 mb-1">$0</p>
-                <p className="text-sm text-gray-500 mb-6">
-                  Use your own API key
-                </p>
-
-                <ul className="space-y-3 text-sm text-gray-700 mb-8">
-                  {[
-                    "Unlimited card generations",
-                    "Bring your own API key",
-                    "Full control over usage",
-                    "All core features included",
-                    "No platform limits",
-                  ].map((f) => (
-                    <li key={f} className="flex items-center gap-2.5">
-                      <div className="w-4 h-4 rounded-full bg-emerald-200 flex items-center justify-center">
-                        <div className="w-1.5 h-1.5 rounded-full bg-emerald-600" />
-                      </div>
-                      {f}
-                    </li>
-                  ))}
-                </ul>
-
-                <button
-                  disabled
-                  className="w-full text-center rounded-full bg-emerald-100 text-emerald-700 font-semibold py-3 text-sm cursor-not-allowed opacity-70"
-                >
-                  Coming soon
-                </button>
-              </div>
-
-              {/* Pro */}
-              <div className="rounded-2xl border border-emerald-200 bg-emerald-500 p-8 shadow-sm text-white">
-                <div className="flex items-center justify-between mb-2">
-                  <p className="text-sm font-semibold text-white/70 uppercase tracking-wide">
-                    Pro
-                  </p>
-                  <span className="text-xs bg-white/20 px-2.5 py-1 rounded-full font-medium">
-                    Coming soon
+              {/* Founder */}
+              <div className="rounded-2xl border-2 border-emerald-500 bg-emerald-500 p-8 shadow-lg text-white relative">
+                <div className="absolute -top-3.5 left-1/2 -translate-x-1/2">
+                  <span className="bg-white text-emerald-600 text-xs font-bold px-3 py-1 rounded-full shadow-sm whitespace-nowrap">
+                    500 spots · 0 taken
                   </span>
                 </div>
 
+                <p className="text-sm font-semibold text-white/70 uppercase tracking-wide mb-2">
+                  Founder
+                </p>
                 <p className="text-4xl font-bold mb-1">
                   $5
                   <span className="text-lg font-normal text-white/70">/mo</span>
                 </p>
-                <p className="text-sm text-white/70 mb-6">Billed monthly</p>
+                <p className="text-sm text-white/70 mb-6">
+                  Locked in forever
+                </p>
 
                 <ul className="space-y-3 text-sm text-white/90 mb-8">
                   {[
-                    "Unlimited card generations",
-                    "No API key required",
-                    "Multiple decks",
-                    "Progress tracking",
-                    "Priority support",
+                    "$5/month, locked in forever",
+                    "Free upgrade to Pro when the AI tutor launches",
+                    "Founder badge in the app",
+                    "Direct line to shape what gets built",
+                    "Early access to new features",
                   ].map((f) => (
-                    <li key={f} className="flex items-center gap-2.5">
-                      <div className="w-4 h-4 rounded-full bg-white/20 flex items-center justify-center">
+                    <li key={f} className="flex items-start gap-2.5">
+                      <div className="w-4 h-4 rounded-full bg-white/20 flex items-center justify-center mt-0.5 shrink-0">
                         <div className="w-1.5 h-1.5 rounded-full bg-white" />
                       </div>
                       {f}
@@ -566,12 +546,53 @@ export default function LandingPage() {
                   ))}
                 </ul>
 
-                <button
-                  disabled
-                  className="w-full text-center rounded-full bg-white/20 text-white font-semibold py-3 text-sm cursor-not-allowed opacity-70"
+                <a
+                  href={APP_URL}
+                  className="block w-full text-center rounded-full bg-white text-emerald-600 font-bold py-3 text-sm hover:bg-emerald-50 transition-colors"
                 >
-                  Notify me
-                </button>
+                  Join as a founder →
+                </a>
+                <p className="mt-3 text-center text-xs text-white/60">
+                  Price never goes up — guaranteed.
+                </p>
+              </div>
+
+              {/* Pro */}
+              <div className="rounded-2xl border border-gray-100 bg-white p-8 shadow-sm">
+                <div className="flex items-center justify-between mb-2">
+                  <p className="text-sm font-semibold text-gray-400 uppercase tracking-wide">
+                    Pro
+                  </p>
+                  <span className="text-xs bg-gray-100 text-gray-500 px-2.5 py-1 rounded-full font-medium">
+                    After founders
+                  </span>
+                </div>
+
+                <p className="text-4xl font-bold text-gray-900 mb-1">
+                  $15
+                  <span className="text-lg font-normal text-gray-400">/mo</span>
+                </p>
+                <p className="text-sm text-gray-400 mb-6">For new members after 500 founders</p>
+
+                <ul className="space-y-3 text-sm text-gray-500 mb-8">
+                  {[
+                    "50 new words per day",
+                    "AI tutor with persistent memory",
+                    "High-quality neural pronunciation",
+                    "Priority access to new features",
+                  ].map((f) => (
+                    <li key={f} className="flex items-center gap-2.5">
+                      <div className="w-4 h-4 rounded-full bg-gray-100 flex items-center justify-center">
+                        <div className="w-1.5 h-1.5 rounded-full bg-gray-400" />
+                      </div>
+                      {f}
+                    </li>
+                  ))}
+                </ul>
+
+                <p className="text-xs text-gray-400 text-center">
+                  Get it at $5/mo by joining as a founder now.
+                </p>
               </div>
             </div>
           </div>
@@ -581,20 +602,20 @@ export default function LandingPage() {
           <div className="mx-auto max-w-6xl px-5 md:px-8">
             <div className="rounded-3xl bg-emerald-500 px-10 py-16 text-center">
               <h2 className="text-3xl font-bold text-white md:text-4xl">
-                Ready to build your vocabulary?
+                Start learning today.
               </h2>
-              <p className="mt-4 text-base text-white/80 max-w-md mx-auto leading-relaxed">
-                Create your first cards in under a minute. No setup, no credit
-                card, no commitment.
+              <p className="mt-4 text-base text-white/80 max-w-lg mx-auto leading-relaxed">
+                No credit card required. Bring your own API key for unlimited
+                word generations, or upgrade to Pro when the AI tutor launches.
               </p>
               <a
                 href={APP_URL}
                 className="mt-8 inline-block rounded-full bg-white px-8 py-4 text-base font-bold text-emerald-600 shadow-sm hover:bg-emerald-50 transition-colors"
               >
-                Start for free
+                Sign up free
               </a>
               <p className="mt-3 text-xs text-white/60">
-                10 generations included on the free plan
+                10 new words per day included on the free plan
               </p>
             </div>
           </div>
@@ -618,7 +639,7 @@ export default function LandingPage() {
                 <span className="font-semibold text-gray-900">Lexgrip</span>
               </div>
               <p className="text-sm leading-6 text-gray-500 max-w-xs">
-                AI-powered vocabulary flashcards for language learners
+                The language app that actually remembers you.
               </p>
             </div>
 
