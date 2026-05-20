@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { ArrowRight, ChevronRight } from "lucide-react";
 
 const APP_URL = "https://app.lexgrip.com";
 
@@ -55,8 +56,8 @@ export default function PolicyLayout({
             <a href={APP_URL} className="text-sm text-gray-600 hover:text-gray-900 transition-colors px-3 py-1.5">
               Sign in
             </a>
-            <a href={APP_URL} className="rounded-full bg-emerald-500 px-4 py-2 text-sm font-semibold text-white hover:bg-emerald-600 transition-colors">
-              Get started free
+            <a href={APP_URL} className="rounded-full bg-emerald-500 px-4 py-2 text-sm font-semibold text-white hover:bg-emerald-600 transition-colors flex items-center gap-1.5">
+              Get started free <ArrowRight size={14} />
             </a>
           </div>
         </div>
@@ -75,12 +76,13 @@ export default function PolicyLayout({
                   <a
                     key={s.id}
                     href={`#${s.id}`}
-                    className={`text-sm py-1.5 px-3 rounded-lg transition-colors ${
+                    className={`text-sm py-1.5 px-3 rounded-lg transition-colors flex items-center gap-1.5 ${
                       activeSection === s.id
                         ? "bg-emerald-50 text-emerald-700 font-medium"
                         : "text-gray-500 hover:text-gray-900 hover:bg-gray-50"
                     }`}
                   >
+                    {activeSection === s.id && <ChevronRight size={12} className="shrink-0" />}
                     {s.title}
                   </a>
                 ))}
