@@ -32,12 +32,12 @@ const APP_URL = "https://app.lexgrip.com";
 const CATEGORIES: { label: string; desc: string; icon: LucideIcon }[] = [
   {
     label: "Shopping",
-    desc: "Prices, sizes, fitting rooms, paying — everything you need at the checkout.",
+    desc: "Prices, sizes, fitting rooms, paying: everything you need at the checkout.",
     icon: ShoppingBag,
   },
   {
     label: "Travel",
-    desc: "Flights, luggage, passport control, hotels — words for on the move.",
+    desc: "Flights, luggage, passport control, hotels: words for on the move.",
     icon: Plane,
   },
   {
@@ -47,7 +47,7 @@ const CATEGORIES: { label: string; desc: string; icon: LucideIcon }[] = [
   },
   {
     label: "Work & Office",
-    desc: "Meetings, deadlines, reports, remote work — professional vocabulary.",
+    desc: "Meetings, deadlines, reports, remote work: professional vocabulary.",
     icon: Briefcase,
   },
   {
@@ -72,7 +72,7 @@ const CATEGORIES: { label: string; desc: string; icon: LucideIcon }[] = [
   },
   {
     label: "Emergency",
-    desc: "Getting help fast — lost, stolen, hospitals, police.",
+    desc: "Getting help fast: lost, stolen, hospitals, police.",
     icon: AlertTriangle,
   },
   {
@@ -85,7 +85,7 @@ const CATEGORIES: { label: string; desc: string; icon: LucideIcon }[] = [
 const FEATURES: { title: string; desc: string; icon: LucideIcon }[] = [
   {
     title: "Scenario-based vocabulary",
-    desc: "Browse real-world situations — the doctor's office, a job interview, a lease negotiation — and study words you'll actually use.",
+    desc: "Browse real-world situations: the doctor's office, a job interview, a lease negotiation: and study words you'll actually use.",
     icon: MapPin,
   },
   {
@@ -120,7 +120,7 @@ const STEPS: { n: string; title: string; desc: string; icon: LucideIcon; soon?: 
   {
     n: "2",
     title: "Build your vocabulary",
-    desc: "Browse real-world scenarios — ordering coffee, talking to a doctor, negotiating a lease — and add the words you need. Or describe what you want and let AI find the right cards.",
+    desc: "Browse real-world scenarios: ordering coffee, talking to a doctor, negotiating a lease: and add the words you need. Or describe what you want and let AI find the right cards.",
     icon: BookOpen,
   },
   {
@@ -465,7 +465,7 @@ export default function LandingPage() {
               <p className="mt-4 text-gray-500 text-base leading-7">
                 Heading on a trip? Pick Travel. Going out for dinner? Pick Food
                 & Dining. Every card you generate is built around a real
-                situation — not random words pulled from a textbook.
+                situation: not random words pulled from a textbook.
               </p>
             </div>
 
@@ -500,7 +500,7 @@ export default function LandingPage() {
               </h2>
               <p className="mt-4 text-gray-500 text-base leading-7">
                 Lexgrip is in early access. The first 500 founding members get a
-                permanent deal — same price, forever, even as we raise rates for
+                permanent deal: same price, forever, even as we raise rates for
                 everyone else.
               </p>
             </div>
@@ -580,7 +580,7 @@ export default function LandingPage() {
                   Join as a founder <ArrowRight size={14} />
                 </a>
                 <p className="mt-3 text-center text-xs text-white/60">
-                  Price never goes up — guaranteed.
+                  Price never goes up: guaranteed.
                 </p>
               </div>
 
