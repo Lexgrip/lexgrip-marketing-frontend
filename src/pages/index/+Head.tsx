@@ -1,7 +1,7 @@
 export default function Head() {
-  const title = "LexGrip - Language Flashcards That Actually Work";
+  const title = "LexGrip — Learn the Words, Master Your Mistakes";
   const description =
-    "Learn a language with AI-generated flashcards, spaced repetition, and a tutor that helps when you get stuck. Free to start.";
+    "LexGrip generates vocabulary for real situations, schedules it with a house-built FSRS engine, and runs an AI tutor that learns from every mistake and drills it until it sticks. Free to start, BYOK for unlimited.";
 
   return (
     <>
@@ -43,11 +43,11 @@ export default function Head() {
             priceCurrency: "USD",
           },
           featureList: [
-            "AI-generated vocabulary flashcards",
-            "Spaced repetition reviews",
-            "AI tutor explanations",
-            "Custom study decks",
-            "Streaks and daily goals",
+            "AI-generated scenario vocabulary",
+            "FSRS spaced repetition",
+            "AI tutor that learns from your mistakes",
+            "French, German, and Spanish",
+            "Bring your own API key for unlimited use",
           ],
         })}
       </script>
