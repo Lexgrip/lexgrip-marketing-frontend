@@ -15,14 +15,17 @@ import {
   KeyRound,
   Gamepad2,
   Quote,
-  Search,
-  Minus,
   Plus,
-  Flame,
   LayoutGrid,
   Bot,
-  User,
-  Pencil,
+  UserCircle,
+  Shuffle,
+  Flame,
+  ChevronRight,
+  ChevronDown,
+  Crown,
+  BookOpen,
+  FolderPlus,
   ArrowLeft,
   AudioLines,
   ShoppingBag,
@@ -32,9 +35,10 @@ import {
   Heart,
   Users,
   Home,
-  Bus,
-  AlertTriangle,
-  Cloud,
+  MessageCircle,
+  Smile,
+  Leaf,
+  Smartphone,
   type LucideIcon,
 } from "lucide-react";
 
@@ -129,14 +133,14 @@ function PhoneFrame({
 }
 
 /* ─────────────────────────────────────────────────────────
-   App chrome — recreates the real LexGrip UI inside the phone.
+   App chrome - recreates the real LexGrip UI inside the phone.
    Top bar + bottom tab bar, with a screen rendered in between.
    ───────────────────────────────────────────────────────── */
 const TABS = [
   { id: "cards", label: "Cards", Icon: LayoutGrid },
   { id: "learn", label: "Learn", Icon: GraduationCap },
   { id: "tutor", label: "Tutor", Icon: Bot },
-  { id: "account", label: "Account", Icon: User },
+  { id: "account", label: "Account", Icon: UserCircle },
 ] as const;
 
 function PhoneChrome({
@@ -203,153 +207,136 @@ function PhoneChrome({
   );
 }
 
-/* ── A single tutor focus-area card: colored header + white body ── */
-function FocusCard({
-  tag,
+/* ── A "steer it yourself" tutor mode row ── */
+function TutorModeRow({
+  icon: Icon,
+  iconBg,
   title,
-  rate,
-  note,
-  missed,
-  slip,
-  wrong,
-  right,
-  from,
-  to,
+  sub,
+  soon = false,
 }: {
-  tag: string;
+  icon: LucideIcon;
+  iconBg: string;
   title: string;
-  rate: string;
-  note: string;
-  missed: string;
-  slip: string;
-  wrong: string;
-  right: string;
-  from: string;
-  to: string;
+  sub: string;
+  soon?: boolean;
 }) {
   return (
-    <div className="w-[80%] shrink-0 overflow-hidden rounded-2xl bg-white shadow-md">
-      {/* colored top half */}
-      <div className={`bg-gradient-to-br ${from} ${to} p-3 text-white`}>
-        <div className="flex items-start justify-between">
-          <p className="text-[7px] font-bold uppercase tracking-widest text-white/80">
-            {tag}
-          </p>
-          <div className="flex h-5 w-5 items-center justify-center rounded-full bg-white/20">
-            <Flame size={10} className="text-white" />
-          </div>
-        </div>
-        <p className="mt-2 text-[13px] font-bold leading-none">{title}</p>
-        <div className="mt-1 flex items-end gap-1.5">
-          <p className="text-[26px] font-extrabold leading-none">{rate}</p>
-          <div className="pb-0.5">
-            <p className="text-[8px] font-semibold leading-tight">miss rate</p>
-            <p className="text-[7px] leading-tight text-white/80">{note}</p>
-          </div>
-        </div>
+    <div className="flex items-center gap-2 rounded-2xl border border-black/[0.04] bg-white p-2 shadow-sm">
+      <div
+        className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br text-white ${iconBg}`}
+      >
+        <Icon size={12} />
       </div>
-      {/* white body */}
-      <div className="p-2.5">
-        <p className="text-[9px] text-gray-700">{missed}</p>
-        <div className="mt-1.5 rounded-lg border border-gray-100 bg-gray-50 p-2">
-          <p className="text-[8px] font-bold uppercase tracking-wide text-gray-400">
-            Recent slip
-          </p>
-          <p className="mt-1 text-[8.5px] italic leading-snug text-gray-600">
-            {slip}
-          </p>
-          <div className="mt-1.5 space-y-0.5">
-            <p className="flex items-center gap-1 text-[9px] text-rose-500">
-              <X size={9} strokeWidth={3} />
-              <span className="line-through">{wrong}</span>
-            </p>
-            <p className="flex items-center gap-1 text-[9px] font-semibold text-emerald-600">
-              <Check size={9} strokeWidth={3} /> {right}
-            </p>
-          </div>
-        </div>
+      <div className="min-w-0 flex-1">
+        <p className="text-[9px] font-bold leading-tight text-gray-900">
+          {title}
+        </p>
+        <p className="truncate text-[7.5px] leading-tight text-gray-400">
+          {sub}
+        </p>
       </div>
+      {soon ? (
+        <span className="shrink-0 rounded-full bg-amber-100 px-1.5 py-0.5 text-[6px] font-bold uppercase tracking-wide text-amber-600">
+          Coming soon
+        </span>
+      ) : (
+        <ChevronRight size={10} className="shrink-0 text-gray-300" />
+      )}
     </div>
   );
 }
 
-/* ── Tutor — the star. Focus areas keyed to your mistakes. ── */
+/* ── Tutor: CEFR level, today's plan, self-steer modes ── */
 function TutorScreen() {
   return (
     <PhoneChrome title="Tutor" active="tutor">
       <div className="flex h-full flex-col px-3.5 pt-3">
-        <p className="text-[14px] font-bold leading-none text-gray-900">
+        <p className="flex items-center gap-1.5 text-[14px] font-bold leading-none text-gray-900">
           Your tutor
+          <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
         </p>
         <p className="mt-1 text-[9px] leading-snug text-gray-500">
-          Each session targets the patterns you miss most.
+          Here's where you stand today.
         </p>
 
-        {/* stats */}
-        <div className="mt-3 grid grid-cols-2 gap-2">
-          <div className="rounded-xl border border-gray-100 bg-white p-2.5 text-center shadow-sm">
-            <p className="flex items-center justify-center gap-1 text-[13px] font-bold text-gray-900">
-              <Flame size={11} className="text-orange-500" /> 2
+        {/* level card */}
+        <div className="mt-2.5 flex items-center gap-2 rounded-2xl border border-black/[0.06] bg-white p-2 shadow-sm">
+          <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-emerald-400 to-emerald-600 text-[9px] font-bold text-white shadow-sm">
+            A1
+          </div>
+          <div className="min-w-0 flex-1">
+            <div className="flex items-center justify-between">
+              <p className="text-[10px] font-bold text-gray-900">Level A1.1</p>
+              <p className="text-[7.5px] text-gray-400">0% to A1.2</p>
+            </div>
+            <div className="mt-1 h-1 overflow-hidden rounded-full bg-gray-100">
+              <div className="h-full w-[4%] rounded-full bg-emerald-500" />
+            </div>
+          </div>
+          <ChevronRight size={10} className="shrink-0 text-gray-300" />
+        </div>
+
+        {/* today's plan */}
+        <div className="mt-2 rounded-2xl bg-gradient-to-br from-violet-600 to-indigo-600 p-2.5 text-white shadow-md">
+          <div className="flex items-start justify-between">
+            <p className="text-[7px] font-semibold uppercase tracking-widest text-white/70">
+              Today's plan
             </p>
-            <p className="text-[8px] text-gray-400">day streak</p>
+            <div className="flex h-5 w-5 items-center justify-center rounded-full bg-white/20">
+              <Target size={10} className="text-white" />
+            </div>
           </div>
-          <div className="rounded-xl border border-gray-100 bg-white p-2.5 text-center shadow-sm">
-            <p className="text-[13px] font-bold text-gray-900">2</p>
-            <p className="text-[8px] text-gray-400">weak spots</p>
+          <div className="mt-1 space-y-1">
+            {[
+              ["1", "Warm-up", "4 due deck words in quick drills"],
+              ["2", "Exploration", "Mixed drills to map where you stand"],
+              ["3", "Reading finale", "An article at A1.1, counts toward A1.2"],
+            ].map(([n, t, d]) => (
+              <div key={n} className="flex items-start gap-1.5">
+                <span className="mt-px flex h-3 w-3 shrink-0 items-center justify-center rounded-full bg-white/20 text-[6.5px] font-bold">
+                  {n}
+                </span>
+                <p className="text-[8px] leading-snug">
+                  <span className="font-bold">{t}</span>
+                  <span className="text-white/80"> – {d}</span>
+                </p>
+              </div>
+            ))}
           </div>
-        </div>
-
-        <div className="mt-3 flex items-center justify-between">
-          <p className="text-[8px] font-bold uppercase tracking-widest text-gray-400">
-            Focus areas
+          <div className="mt-2 rounded-full bg-white py-1.5 text-center text-[9px] font-bold text-violet-600">
+            Start the plan
+          </div>
+          <p className="mt-1.5 text-center text-[6.5px] text-white/70">
+            Why this plan? Built from your recent misses →
           </p>
-          <p className="text-[8px] text-gray-400">swipe →</p>
         </div>
 
-        {/* focus cards — colored header, white body in one card */}
-        <div className="mt-1.5 flex gap-2 overflow-hidden">
-          {/* primary */}
-          <FocusCard
-            tag="Lexicon"
-            title="False Friend"
-            rate="59%"
-            note="Often picks the wrong form"
-            missed="Missed in 6 of 13 attempts."
-            slip="“Ich war glücklich, als ich dich gestern mit einem freundlichen Guten Tag begrüßte.”"
-            wrong="hallo"
-            right="Guten Tag"
-            from="from-orange-400"
-            to="to-orange-600"
+        {/* steer it yourself */}
+        <p className="mt-2 text-[7px] font-bold uppercase tracking-widest text-gray-400">
+          Or steer it yourself
+        </p>
+        <div className="mt-1 space-y-1.5 pb-2">
+          <TutorModeRow
+            icon={Target}
+            iconBg="from-rose-500 to-pink-600"
+            title="Fix your weak spots"
+            sub="Targeted reps on the patterns you miss most"
           />
-          {/* next card, peeking off the edge */}
-          <FocusCard
-            tag="Syntax"
-            title="Subordination"
-            rate="100%"
-            note="Verb in the wrong position"
-            missed="Missed in 3 of 3 attempts."
-            slip="“Ich weiß, dass ich gestern zu spät gekommen bin.”"
-            wrong="bin gekommen"
-            right="gekommen bin"
-            from="from-pink-400"
-            to="to-rose-600"
+          <TutorModeRow
+            icon={UtensilsCrossed}
+            iconBg="from-amber-400 to-orange-500"
+            title="Speak a real situation"
+            sub="Live voice scenes, order the coffee out loud"
+            soon
           />
-        </div>
-
-        <div className="mt-auto pb-3 pt-2.5">
-          <div className="flex items-center justify-center gap-1.5 rounded-full bg-emerald-500 py-2.5">
-            <Sparkles size={11} className="text-white" />
-            <span className="text-[10px] font-semibold text-white">
-              Start session
-            </span>
-          </div>
         </div>
       </div>
     </PhoneChrome>
   );
 }
 
-/* ── Learn — FSRS flashcard review ── */
+/* ── Learn: FSRS flashcard review ── */
 function LearnScreen() {
   return (
     <PhoneChrome title="Learn" active="learn">
@@ -363,15 +350,15 @@ function LearnScreen() {
           <X size={11} className="text-gray-300" />
         </div>
 
-        {/* card */}
+        {/* card back face after flipping */}
         <div className="flex flex-1 flex-col items-center justify-center">
-          <div className="w-full rounded-3xl bg-gradient-to-br from-emerald-400 to-emerald-600 px-4 py-7 text-center text-white shadow-lg">
-            <p className="text-[7px] font-bold uppercase tracking-widest text-white/70">
+          <div className="w-full rounded-3xl bg-emerald-500 px-4 py-7 text-center text-white shadow-sm">
+            <p className="text-[7px] font-semibold uppercase tracking-widest text-white/60">
               Feelings &amp; Opinions
             </p>
             <p className="mt-3 text-[22px] font-bold leading-none">satisfied</p>
-            <div className="mx-auto my-3 h-px w-3/4 bg-white/30" />
-            <p className="text-[9px] italic leading-snug text-white/90">
+            <div className="mx-auto my-3 h-px w-full bg-white/20" />
+            <p className="text-[9px] italic leading-snug text-white/80">
               “Sie ist mit ihrer Arbeit heute zufrieden.”
             </p>
           </div>
@@ -406,10 +393,10 @@ function LearnScreen() {
           </p>
           <div className="grid grid-cols-4 gap-1.5">
             {[
-              { l: "Again", c: "bg-rose-50 text-rose-500" },
-              { l: "Hard", c: "bg-amber-50 text-amber-500" },
-              { l: "Good", c: "bg-emerald-500 text-white" },
-              { l: "Easy", c: "bg-sky-50 text-sky-500" },
+              { l: "Again", c: "border border-rose-200 bg-rose-50 text-rose-600" },
+              { l: "Hard", c: "border border-amber-200 bg-amber-50 text-amber-600" },
+              { l: "Good", c: "border border-emerald-600 bg-emerald-500 text-white shadow-sm" },
+              { l: "Easy", c: "border border-blue-200 bg-blue-50 text-blue-600" },
             ].map((b) => (
               <div
                 key={b.l}
@@ -425,75 +412,92 @@ function LearnScreen() {
   );
 }
 
-/* ── Generate — scenario selection ── */
-const SCENARIO_PILLS: { label: string; c: string }[] = [
-  { label: "Family & Relationships", c: "bg-rose-50 text-rose-600" },
-  { label: "Feelings & Opinions", c: "bg-violet-50 text-violet-600" },
-  { label: "Food & Dining", c: "bg-emerald-50 text-emerald-600" },
-  { label: "Greetings & Small Talk", c: "bg-sky-50 text-sky-600" },
-  { label: "Health & Body", c: "bg-rose-50 text-rose-600" },
-  { label: "Home & Daily Routine", c: "bg-emerald-50 text-emerald-600" },
-  { label: "Technology & Comms", c: "bg-violet-50 text-violet-600" },
-  { label: "Time, Numbers & Plans", c: "bg-cyan-50 text-cyan-600" },
-  { label: "Travel & Getting Around", c: "bg-blue-50 text-blue-600" },
-  { label: "Shopping & Money", c: "bg-amber-50 text-amber-600" },
-];
-
-function GenerateScreen() {
+/* ── Mistake autopsy: recurring mistakes with receipts ── */
+function MistakeAutopsyScreen() {
   return (
-    <PhoneChrome title="Generate Cards" active="cards" back>
-      <div className="flex h-full flex-col px-3.5 pt-3">
-        <p className="text-[8px] font-bold uppercase tracking-widest text-gray-400">
-          Scenario selection
+    <PhoneChrome title="Tutor" active="tutor">
+      <div className="flex h-full flex-col px-3.5 pt-2.5">
+        <p className="flex items-center gap-1 text-[8px] text-gray-400">
+          <ArrowLeft size={9} /> Back
         </p>
-        <div className="mt-2 grid grid-cols-2 gap-1.5">
-          {SCENARIO_PILLS.map((p) => (
-            <div
-              key={p.label}
-              className={`truncate rounded-lg px-2 py-2 text-[8.5px] font-semibold ${p.c}`}
-            >
-              {p.label}
+        <p className="mt-1.5 text-[13px] font-bold leading-none text-gray-900">
+          Mistake autopsy
+        </p>
+        <p className="mt-1 text-[8px] leading-snug text-gray-500">
+          Every recurring mistake, with receipts – your actual answers next to
+          the fix. Clear them and they move to the trophy pile.
+        </p>
+
+        <div className="mt-2 flex items-center justify-center gap-1.5 rounded-full bg-emerald-500 py-2 shadow-sm">
+          <Target size={10} className="text-white" />
+          <span className="text-[9px] font-semibold text-white">
+            Drill my weak spots
+          </span>
+        </div>
+
+        <p className="mt-2.5 text-[7px] font-bold uppercase tracking-widest text-gray-400">
+          Your weak spots
+        </p>
+        <div className="mt-1 overflow-hidden rounded-2xl bg-white shadow-md">
+          <div className="bg-gradient-to-br from-rose-500 to-pink-600 p-2.5 text-white">
+            <div className="flex items-start justify-between">
+              <p className="text-[7px] font-semibold uppercase tracking-widest text-white/80">
+                Morphology
+              </p>
+              <div className="flex h-4.5 w-4.5 items-center justify-center rounded-lg bg-white/20 p-1">
+                <Shuffle size={9} className="text-white" />
+              </div>
             </div>
-          ))}
-        </div>
-
-        <div className="my-2.5 flex items-center gap-2">
-          <div className="h-px flex-1 bg-gray-200" />
-          <p className="text-[7.5px] text-gray-400">or describe what you need</p>
-          <div className="h-px flex-1 bg-gray-200" />
-        </div>
-
-        <div className="flex items-center gap-1.5 rounded-xl border border-gray-200 bg-white px-2.5 py-2.5">
-          <Search size={11} className="text-gray-300" />
-          <p className="text-[9px] text-gray-400">
-            Describe the flashcards you want
+            <p className="mt-1 text-[12px] font-bold leading-none">
+              verb conjugation
+            </p>
+            <div className="mt-1.5 flex items-baseline gap-1.5">
+              <p className="text-[20px] font-bold leading-none">52%</p>
+              <p className="text-[7px] leading-tight text-white/80">
+                miss rate
+                <br />
+                seen 3×
+              </p>
+            </div>
+          </div>
+          <p className="p-2.5 text-[8px] leading-snug text-gray-500">
+            Check that the verb ending correctly matches the subject in person
+            (1st/2nd/3rd) and number (singular/plural) for the chosen tense.
           </p>
         </div>
 
-        <div className="mt-2 flex items-center justify-between rounded-xl border border-gray-100 bg-white px-2.5 py-2 shadow-sm">
-          <div>
-            <p className="text-[9px] font-semibold text-gray-800">
-              Cards to generate
+        <p className="mt-2.5 text-[7px] font-bold uppercase tracking-widest text-gray-400">
+          Open cases · 1
+        </p>
+        <div className="mt-1 rounded-2xl border border-black/[0.04] bg-white p-2.5 shadow-sm">
+          <div className="flex items-center gap-1.5">
+            <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-rose-500" />
+            <p className="flex-1 text-[9px] font-bold text-gray-900">
+              verb conjugation
             </p>
-            <p className="text-[7px] text-gray-400">1–15 cards</p>
+            <ChevronDown size={9} className="rotate-180 text-gray-300" />
           </div>
-          <div className="flex items-center gap-2">
-            <div className="flex h-5 w-5 items-center justify-center rounded-full border border-gray-200">
-              <Minus size={9} className="text-gray-400" />
-            </div>
-            <span className="text-[11px] font-bold text-gray-900">5</span>
-            <div className="flex h-5 w-5 items-center justify-center rounded-full border border-gray-200">
-              <Plus size={9} className="text-gray-400" />
-            </div>
-          </div>
-        </div>
-
-        <div className="mt-auto pb-3 pt-2.5">
-          <div className="flex items-center justify-center gap-1.5 rounded-full bg-emerald-300 py-2.5">
-            <Wand2 size={11} className="text-white" />
-            <span className="text-[9px] font-semibold text-white">
-              Select a scenario or describe above
+          <p className="mt-0.5 truncate text-[7.5px] text-gray-400">
+            Check that the verb ending correctly matches the su…
+          </p>
+          <p className="mt-1 flex items-center gap-1.5 text-[7px] text-gray-400">
+            seen 3×
+            <span className="flex items-center gap-0.5 font-semibold text-rose-500">
+              <Flame size={7} /> heating up
             </span>
+          </p>
+          <div className="mt-1.5 rounded-xl bg-gray-50 p-2">
+            <p className="flex items-center gap-1 text-[8.5px] text-rose-400">
+              <X size={8} strokeWidth={3} />
+              <span className="line-through">Ich</span>
+            </p>
+            <p className="mt-0.5 flex items-center gap-1 text-[8.5px] font-medium text-gray-800">
+              <Check size={8} strokeWidth={3} className="text-emerald-500" />
+              leben
+            </p>
+            <p className="mt-1 text-[6.5px] font-semibold uppercase tracking-wide text-gray-300">
+              Today · Cloze
+            </p>
           </div>
         </div>
       </div>
@@ -501,58 +505,209 @@ function GenerateScreen() {
   );
 }
 
-/* ── Cards — the deck ── */
-const DECK_CARDS: { cat: string; word: string; tr: string; c: string }[] = [
+/* ── Sub-tabs shared by the Cards / Decks screens ── */
+function CardsTabs({ active }: { active: "cards" | "decks" }) {
+  return (
+    <div className="flex gap-4 border-b border-gray-100 text-[9px] font-semibold">
+      <span
+        className={
+          active === "cards"
+            ? "border-b-2 border-emerald-500 pb-1 text-gray-900"
+            : "pb-1 text-gray-400"
+        }
+      >
+        Cards
+      </span>
+      <span
+        className={
+          active === "decks"
+            ? "border-b-2 border-emerald-500 pb-1 text-gray-900"
+            : "pb-1 text-gray-400"
+        }
+      >
+        Decks
+      </span>
+    </div>
+  );
+}
+
+/* ── Decks: curated deck catalog ── */
+const TOPIC_DECKS: { name: string; learned: string; c: string; w: string }[] = [
+  { name: "Family & Friends", learned: "0 / 234", c: "bg-rose-500", w: "w-0" },
   {
-    cat: "Time, Numbers & Plans",
-    word: "tausendmal",
-    tr: "a thousand times",
-    c: "bg-cyan-50",
+    name: "Feelings & Opinions",
+    learned: "2 / 1122",
+    c: "bg-purple-500",
+    w: "w-[2%]",
   },
-  { cat: "Problem Solving", word: "lösen", tr: "solve", c: "bg-indigo-50" },
-  { cat: "Work & Study", word: "die Aufgabe", tr: "task", c: "bg-gray-100" },
+  { name: "Food & Drink", learned: "0 / 445", c: "bg-green-500", w: "w-0" },
   {
-    cat: "Complex Structures",
-    word: "komplex",
-    tr: "complex",
-    c: "bg-pink-50",
+    name: "Greetings & Small Talk",
+    learned: "5 / 62",
+    c: "bg-blue-500",
+    w: "w-[8%]",
   },
-  { cat: "Greetings & Small Talk", word: "Servus", tr: "Hi", c: "bg-sky-50" },
-  { cat: "Greetings & Small Talk", word: "danke", tr: "thanks", c: "bg-sky-50" },
-  { cat: "Greetings & Small Talk", word: "Abend", tr: "evening", c: "bg-sky-50" },
-  { cat: "Greetings & Small Talk", word: "heute", tr: "today", c: "bg-sky-50" },
+];
+
+function DecksScreen() {
+  return (
+    <PhoneChrome title="Cards" active="cards">
+      <div className="flex h-full flex-col px-3 pt-2">
+        <CardsTabs active="decks" />
+
+        <div className="mt-2 flex items-center justify-between">
+          <p className="text-[8px] text-gray-400">13 curated decks · 0 of yours</p>
+          <div className="flex items-center gap-1 rounded-xl bg-emerald-500 px-2 py-1.5 shadow-sm">
+            <FolderPlus size={9} className="text-white" />
+            <span className="text-[8px] font-semibold text-white">
+              Create deck
+            </span>
+          </div>
+        </div>
+
+        {/* featured deck */}
+        <div className="mt-2 rounded-2xl bg-gradient-to-br from-violet-600 to-indigo-600 p-3 text-white shadow-md">
+          <p className="flex items-center gap-1 text-[7px] font-semibold uppercase tracking-widest text-white/80">
+            <Crown size={9} /> Start here
+          </p>
+          <p className="mt-1 text-[14px] font-bold leading-none">
+            Core Vocabulary
+          </p>
+          <p className="mt-1 text-[8px] leading-snug text-white/80">
+            Core high-frequency vocabulary every learner needs, served easiest
+            first.
+          </p>
+          <p className="mt-2 text-[7.5px] text-white/90">70 / 3878 learned</p>
+          <div className="mt-1 h-1 overflow-hidden rounded-full bg-white/25">
+            <div className="h-full w-[2%] rounded-full bg-white" />
+          </div>
+        </div>
+
+        <p className="mt-2.5 text-[9px] font-bold text-gray-900">
+          Browse by topic
+        </p>
+        <div className="mt-1.5 grid flex-1 grid-cols-2 content-start gap-1.5 overflow-hidden">
+          {TOPIC_DECKS.map((d) => (
+            <div
+              key={d.name}
+              className="rounded-2xl border border-black/[0.04] bg-white p-2.5 shadow-sm"
+            >
+              <div
+                className={`flex h-6 w-6 items-center justify-center rounded-xl text-white ${d.c}`}
+              >
+                <BookOpen size={11} />
+              </div>
+              <p className="mt-1.5 truncate text-[9px] font-bold text-gray-900">
+                {d.name}
+              </p>
+              <p className="mt-0.5 text-[7px] text-gray-400">
+                {d.learned} learned
+              </p>
+              <div className="mt-1 h-1 overflow-hidden rounded-full bg-gray-100">
+                <div className={`h-full rounded-full bg-emerald-500 ${d.w}`} />
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </PhoneChrome>
+  );
+}
+
+/* ── Cards: the deck, themed by deck color, with review status ── */
+const DECK_CARDS: {
+  cat: string;
+  word: string;
+  tr: string;
+  card: string;
+  badge: string;
+}[] = [
+  {
+    cat: "Feelings & Opinions",
+    word: "die Meinung",
+    tr: "the opinion",
+    card: "bg-violet-100",
+    badge: "text-violet-700",
+  },
+  {
+    cat: "Feelings & Opinions",
+    word: "glücklich",
+    tr: "happy",
+    card: "bg-violet-100",
+    badge: "text-violet-700",
+  },
+  {
+    cat: "Greetings & Small Talk",
+    word: "die Heimat",
+    tr: "home country",
+    card: "bg-blue-100",
+    badge: "text-blue-700",
+  },
+  {
+    cat: "Greetings & Small Talk",
+    word: "die Herkunft",
+    tr: "origin",
+    card: "bg-blue-100",
+    badge: "text-blue-700",
+  },
+  {
+    cat: "Greetings & Small Talk",
+    word: "Auf Wiedersehen",
+    tr: "Goodbye",
+    card: "bg-blue-100",
+    badge: "text-blue-700",
+  },
+  {
+    cat: "Greetings & Small Talk",
+    word: "das Wetter",
+    tr: "weather",
+    card: "bg-blue-100",
+    badge: "text-blue-700",
+  },
 ];
 
 function CardsScreen() {
   return (
     <PhoneChrome title="Cards" active="cards">
-      <div className="flex h-full flex-col px-3 pt-2.5">
-        <div className="flex items-center justify-end gap-1.5">
-          <div className="flex items-center gap-1 rounded-lg border border-gray-200 bg-white px-2 py-1.5">
-            <Pencil size={9} className="text-gray-500" />
-            <span className="text-[8px] font-medium text-gray-700">
-              Add manually
-            </span>
-          </div>
-          <div className="flex items-center gap-1 rounded-lg bg-emerald-500 px-2 py-1.5">
-            <Sparkles size={9} className="text-white" />
+      <div className="flex h-full flex-col px-3 pt-2">
+        <CardsTabs active="cards" />
+
+        <div className="mt-2 flex items-center justify-between">
+          <p className="text-[8px] text-gray-400">87 cards</p>
+          <div className="flex items-center gap-1 rounded-xl bg-emerald-500 px-2 py-1.5 shadow-sm">
+            <Plus size={9} className="text-white" />
             <span className="text-[8px] font-semibold text-white">
-              Generate Cards
+              Add cards
             </span>
           </div>
         </div>
-        <p className="mt-2 text-[8px] text-gray-400">29 cards</p>
 
-        <div className="mt-1.5 grid flex-1 grid-cols-2 content-start gap-1.5 overflow-hidden">
+        {/* filter chips */}
+        <div className="mt-1.5 flex gap-1.5">
+          <span className="rounded-full border border-gray-200 bg-white px-2 py-1 text-[8px] font-medium text-gray-600">
+            Due now
+          </span>
+          <span className="flex items-center gap-0.5 rounded-full border border-gray-200 bg-white px-2 py-1 text-[8px] font-medium text-gray-600">
+            All decks <ChevronDown size={8} />
+          </span>
+        </div>
+
+        <div className="mt-2 grid flex-1 grid-cols-2 content-start gap-1.5 overflow-hidden">
           {DECK_CARDS.map((c, i) => (
-            <div key={i} className={`rounded-xl p-2.5 ${c.c}`}>
-              <p className="truncate text-[6.5px] font-bold uppercase tracking-wide text-gray-500">
+            <div key={i} className={`rounded-2xl p-2.5 ${c.card}`}>
+              <p
+                className={`truncate text-[6.5px] font-semibold uppercase tracking-wide ${c.badge}`}
+              >
                 {c.cat}
               </p>
-              <p className="mt-1 text-[11px] font-bold leading-none text-gray-900">
+              <p className="mt-1 truncate text-[11px] font-bold leading-none text-gray-900">
                 {c.word}
               </p>
               <p className="mt-1 text-[8px] text-gray-500">{c.tr}</p>
+              <p className="mt-1 flex items-center gap-1 text-[7px] font-semibold text-gray-700">
+                <span className="h-1 w-1 rounded-full bg-emerald-500" />
+                due now
+              </p>
             </div>
           ))}
         </div>
@@ -573,8 +728,8 @@ const LOOP: {
 }[] = [
   {
     n: "01",
-    title: "Generate",
-    desc: "Describe a scenario like ordering at a restaurant, passport control, or a lease negotiation, and AI builds vocabulary cards scoped to it, each with a translation, a usage example, and audio.",
+    title: "Generate or grab from a deck",
+    desc: "Pull ready-made cards from the curated decks, frequency-ordered so the most useful words come first, or describe what you need and AI builds the cards for you, each with a translation, a usage example, and audio.",
     icon: Wand2,
   },
   {
@@ -593,23 +748,25 @@ const LOOP: {
   {
     n: "04",
     title: "Correct & resurface",
-    desc: "Every mistake is captured into a personal error profile. The tutor keeps resurfacing your weak spots in new contexts until your accuracy recovers.",
+    desc: "Every mistake is captured into a personal error profile. The tutor resurfaces your weak spots in new contexts and unlimited drills (sentence correction, fill-in-the-blank, word order, meaning match) until your accuracy recovers.",
     icon: Target,
     ai: true,
   },
 ];
 
 const CATEGORIES: { label: string; icon: LucideIcon }[] = [
-  { label: "Shopping", icon: ShoppingBag },
-  { label: "Travel", icon: Plane },
-  { label: "Food & Dining", icon: UtensilsCrossed },
-  { label: "Work & Office", icon: Briefcase },
+  { label: "Greetings & Small Talk", icon: MessageCircle },
+  { label: "Food & Drink", icon: UtensilsCrossed },
+  { label: "Travel & Transport", icon: Plane },
+  { label: "Shopping & Money", icon: ShoppingBag },
+  { label: "Home & Daily Life", icon: Home },
+  { label: "Work & School", icon: Briefcase },
   { label: "Health & Body", icon: Heart },
-  { label: "Social & Small Talk", icon: Users },
-  { label: "Home & Family", icon: Home },
-  { label: "Transport", icon: Bus },
-  { label: "Emergency", icon: AlertTriangle },
-  { label: "Nature & Weather", icon: Cloud },
+  { label: "Family & Friends", icon: Users },
+  { label: "Feelings & Opinions", icon: Smile },
+  { label: "Nature & Animals", icon: Leaf },
+  { label: "Tech & Media", icon: Smartphone },
+  { label: "Hobbies & Free Time", icon: Gamepad2 },
 ];
 
 const REVIEWS: { name: string; lang: string; quote: string }[] = [
@@ -662,10 +819,10 @@ const PRICING: {
     per: "forever",
     blurb: "Everything you need to build the habit.",
     features: [
-      "10 scenario cards per day",
-      "3 of your own prompted cards per day",
+      "Free cards from every curated deck",
+      "10 free AI-generated words",
       "Full FSRS spaced repetition",
-      "Learning games (coming soon)",
+      "Learning games, with more on the way",
       "Browser text-to-speech audio",
     ],
     cta: "Get started free",
@@ -676,11 +833,10 @@ const PRICING: {
     per: "bring your own key",
     blurb: "Plug in your own AI key. Pay your provider, nothing to us.",
     features: [
-      "Unlimited scenario & prompted cards",
+      "Everything in Free",
+      "Unlimited prompted cards",
       "Unlimited AI tutor access",
-      "Full FSRS spaced repetition",
-      "Learning games (coming soon)",
-      "Browser text-to-speech audio",
+      "Premium learning games & AI voice (coming soon)",
     ],
     cta: "Connect your key",
     featured: true,
@@ -696,7 +852,7 @@ const PRICING: {
       "Everything in BYOK, managed for you",
       "No API key required",
       "Unlimited tutor & generations",
-      "High-quality neural TTS (coming soon)",
+      "Premium learning games & AI voice (coming soon)",
       "Priority access to new features",
     ],
     cta: "Go Pro",
@@ -732,7 +888,7 @@ export default function LandingPage() {
             {[
               ["#how-it-works", "How it works"],
               ["#tutor", "AI tutor"],
-              ["#scenarios", "Scenarios"],
+              ["#scenarios", "Decks"],
               ["#pricing", "Pricing"],
             ].map(([href, label]) => (
               <a
@@ -779,7 +935,7 @@ export default function LandingPage() {
               AI tutor
             </a>
             <a href="#scenarios" className="transition-colors hover:text-gray-900">
-              Scenarios
+              Decks
             </a>
             <a href="#pricing" className="transition-colors hover:text-gray-900">
               Pricing
@@ -974,7 +1130,7 @@ export default function LandingPage() {
           </div>
         </section>
 
-        {/* ── AI Tutor (dark, purple) — the value prop ── */}
+        {/* ── AI Tutor (dark, purple): the value prop ── */}
         <section
           id="tutor"
           className="relative overflow-hidden bg-[#0d0b1a] py-24 text-white"
@@ -989,7 +1145,7 @@ export default function LandingPage() {
               <Reveal className="order-2 lg:order-1">
                 <div className="relative flex justify-center">
                   <PhoneFrame className="animate-float">
-                    <TutorScreen />
+                    <MistakeAutopsyScreen />
                   </PhoneFrame>
                 </div>
               </Reveal>
@@ -1022,6 +1178,11 @@ export default function LandingPage() {
                       icon: GraduationCap,
                       t: "It resurfaces your weak spots",
                       d: "It keeps serving the things you get wrong back to you in new contexts until your accuracy recovers.",
+                    },
+                    {
+                      icon: Shuffle,
+                      t: "Unlimited weakness drills",
+                      d: "Sentence correction, fill-in-the-blank, word order, and meaning match drills, built straight from your error profile.",
                     },
                     {
                       icon: Sparkles,
@@ -1060,16 +1221,18 @@ export default function LandingPage() {
             <div className="grid items-center gap-12 lg:grid-cols-2">
               <Reveal>
                 <p className="mb-3 text-sm font-semibold uppercase tracking-widest text-emerald-500">
-                  Scenarios
+                  Curated decks
                 </p>
                 <h2 className="text-3xl font-bold text-gray-900 md:text-4xl">
-                  Learn words for situations you'll actually be in.
+                  The most common words first, or straight to the topic you
+                  need.
                 </h2>
                 <p className="mt-4 text-base leading-7 text-gray-500">
-                  Heading on a trip? Generate a Travel deck. Going out for
-                  dinner? Food &amp; Dining. Every card you create is built
-                  around a real situation, not random words pulled from a
-                  textbook.
+                  No random textbook word lists. Core Vocabulary serves the
+                  highest-frequency words first, so everything you learn shows
+                  up in real life immediately. Or go straight to the source:
+                  twelve everyday topic decks, from ordering dinner to talking
+                  about how you feel.
                 </p>
                 <div className="mt-7 flex flex-wrap gap-2.5">
                   {CATEGORIES.map(({ label, icon: Icon }) => (
@@ -1087,7 +1250,7 @@ export default function LandingPage() {
               <Reveal delay={120}>
                 <div className="flex items-center justify-center">
                   <PhoneFrame className="animate-float z-10 -mr-8 rotate-[-4deg]">
-                    <GenerateScreen />
+                    <DecksScreen />
                   </PhoneFrame>
                   <PhoneFrame className="animate-float-delayed hidden scale-95 rotate-[5deg] opacity-95 sm:block">
                     <CardsScreen />
@@ -1209,11 +1372,11 @@ export default function LandingPage() {
               <div className="flex flex-col items-center gap-4 rounded-2xl border border-gray-100 bg-[#F7FAF8] p-6 text-sm text-gray-500 sm:flex-row sm:justify-center sm:gap-8">
                 <span className="flex items-center gap-2">
                   <Gamepad2 size={16} className="text-emerald-500" /> Learning
-                  games coming soon
+                  games are live, more on the way
                 </span>
                 <span className="flex items-center gap-2">
-                  <Volume2 size={16} className="text-emerald-500" /> Neural TTS
-                  on the roadmap
+                  <Volume2 size={16} className="text-emerald-500" /> AI voice
+                  coming soon
                 </span>
                 <span className="flex items-center gap-2">
                   <KeyRound size={16} className="text-violet-500" /> BYOK keeps
@@ -1275,7 +1438,7 @@ export default function LandingPage() {
                 {[
                   ["#how-it-works", "How it works"],
                   ["#tutor", "AI tutor"],
-                  ["#scenarios", "Scenarios"],
+                  ["#scenarios", "Decks"],
                   ["#pricing", "Pricing"],
                   [APP_URL, "Sign in"],
                 ].map(([href, label]) => (

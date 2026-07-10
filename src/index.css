@@ -122,8 +122,8 @@
 
 /* ── Brand tokens ── */
 :root {
-  --brand: #10b981; /* emerald — whole brand */
-  --ai: #7c3aed; /* royal purple — AI tutor / AI features */
+  --brand: #10b981; /* emerald: whole brand */
+  --ai: #7c3aed; /* royal purple: AI tutor / AI features */
 }
 
 /* ── Reveal on scroll ── */

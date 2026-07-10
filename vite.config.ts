@@ -6,6 +6,7 @@ import vike from "vike/plugin";
 
 // https://vite.dev/config/
 export default defineConfig({
+  server: process.env.PORT ? { port: Number(process.env.PORT) } : undefined,
   plugins: [vike(), react(), tailwindcss()],
   resolve: {
     alias: {

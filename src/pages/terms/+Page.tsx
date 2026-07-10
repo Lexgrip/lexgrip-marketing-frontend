@@ -88,8 +88,8 @@ export default function TermsPage() {
       <PolicySection id="intellectual-property" title="5. Intellectual property">
         <p>
           <strong className="text-gray-800">Our content.</strong> The Service and its original
-          content, features, and functionality — including the software,
-          design, text, and graphics — are owned by Lexgrip and protected by
+          content, features, and functionality, including the software,
+          design, text, and graphics, are owned by Lexgrip and protected by
           applicable intellectual property laws. You may not copy, modify,
           distribute, or create derivative works without our express written
           permission.
@@ -119,7 +119,7 @@ export default function TermsPage() {
           <li>All fees are in US dollars and are non-refundable except where required by law.</li>
           <li>We reserve the right to change pricing with at least 30 days' notice. Founder-tier subscribers who joined before the founding period closed will not have their price increased.</li>
           <li>If a payment fails, we may suspend your access until the outstanding balance is resolved.</li>
-          <li>You may cancel your subscription at any time. Cancellation takes effect at the end of the current billing period — you retain access until then.</li>
+          <li>You may cancel your subscription at any time. Cancellation takes effect at the end of the current billing period, and you retain access until then.</li>
         </ul>
         <p>
           Payments are processed by a third-party payment provider. We do not
@@ -176,8 +176,8 @@ export default function TermsPage() {
           You may delete your account at any time through the account settings.
           Upon termination, your right to use the Service ceases immediately.
           Provisions of these Terms that by their nature should survive
-          termination — including intellectual property, disclaimers, and
-          limitation of liability — will survive.
+          termination, including intellectual property, disclaimers, and
+          limitation of liability, will survive.
         </p>
       </PolicySection>
 

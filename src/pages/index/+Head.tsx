@@ -1,5 +1,5 @@
 export default function Head() {
-  const title = "LexGrip — Learn the Words, Master Your Mistakes";
+  const title = "LexGrip - Learn the Words, Master Your Mistakes";
   const description =
     "LexGrip generates vocabulary for real situations, schedules it with a house-built FSRS engine, and runs an AI tutor that learns from every mistake and drills it until it sticks. Free to start, BYOK for unlimited.";
 

@@ -33,7 +33,7 @@ export default function PrivacyPage() {
           <strong className="text-gray-800">Information you provide directly.</strong> When
           you create an account, we collect your email address and password. If
           you subscribe to a paid plan, our payment processor collects your
-          billing information — we do not store full payment card details on our
+          billing information; we do not store full payment card details on our
           servers.
         </p>
         <p>
