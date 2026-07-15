@@ -63,7 +63,7 @@ export default function TermsPage() {
           <li>Providing accurate, current, and complete information during registration.</li>
           <li>Maintaining the confidentiality of your password and account credentials.</li>
           <li>All activity that occurs under your account.</li>
-          <li>Notifying us immediately at <a href="mailto:hello@lexgrip.com" className="text-emerald-600 hover:underline">hello@lexgrip.com</a> if you suspect unauthorised access.</li>
+          <li>Notifying us immediately at <a href="mailto:team@lexgrip.com" className="text-emerald-600 hover:underline">team@lexgrip.com</a> if you suspect unauthorised access.</li>
         </ul>
         <p>
           We reserve the right to suspend or terminate accounts that violate
@@ -213,8 +213,8 @@ export default function TermsPage() {
           <p className="font-semibold text-gray-800">Lexgrip</p>
           <p>
             Email:{" "}
-            <a href="mailto:hello@lexgrip.com" className="text-emerald-600 hover:underline">
-              hello@lexgrip.com
+            <a href="mailto:team@lexgrip.com" className="text-emerald-600 hover:underline">
+              team@lexgrip.com
             </a>
           </p>
           <p>Website: <a href="https://lexgrip.com" className="text-emerald-600 hover:underline">lexgrip.com</a></p>

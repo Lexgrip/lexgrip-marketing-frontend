@@ -1466,7 +1466,7 @@ export default function LandingPage() {
                 </li>
                 <li>
                   <a
-                    href="mailto:hello@lexgrip.com"
+                    href="mailto:team@lexgrip.com"
                     className="transition-colors hover:text-gray-900"
                   >
                     Contact
