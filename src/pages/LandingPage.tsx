@@ -42,8 +42,8 @@ import {
   type LucideIcon,
 } from "lucide-react";
 
-const APP_URL = "https://app.lexgrip.com";
 const DISCORD_URL = "https://discord.gg/yCubCRvjH";
+const BETA_URL = "/beta";
 
 /* ─────────────────────────────────────────────────────────
    Reveal-on-scroll helper (client-only, SSR-safe)
@@ -826,7 +826,7 @@ const PRICING: {
       "Learning games, with more on the way",
       "Browser text-to-speech audio",
     ],
-    cta: "Get started free",
+    cta: "Join the beta",
   },
   {
     name: "BYOK",
@@ -839,7 +839,7 @@ const PRICING: {
       "Unlimited AI tutor access",
       "Premium learning games & AI voice (coming soon)",
     ],
-    cta: "Connect your key",
+    cta: "Join the beta",
     featured: true,
     ai: true,
     badge: "Most popular",
@@ -856,7 +856,7 @@ const PRICING: {
       "Premium learning games & AI voice (coming soon)",
       "Priority access to new features",
     ],
-    cta: "Go Pro",
+    cta: "Join the beta",
   },
 ];
 
@@ -904,16 +904,18 @@ export default function LandingPage() {
           </nav>
           <div className="mt-auto flex flex-col gap-3">
             <a
-              href={APP_URL}
+              href={DISCORD_URL}
+              target="_blank"
+              rel="noreferrer noopener"
               className="w-full rounded-full border border-gray-200 px-5 py-3 text-center text-sm font-medium text-gray-700 hover:bg-gray-50"
             >
-              Sign in
+              Discord
             </a>
             <a
-              href={APP_URL}
+              href={BETA_URL}
               className="flex w-full items-center justify-center gap-2 rounded-full bg-emerald-500 px-5 py-3 text-center text-sm font-semibold text-white hover:bg-emerald-600"
             >
-              Get started free <ArrowRight size={15} />
+              Join the beta <ArrowRight size={15} />
             </a>
           </div>
         </div>
@@ -944,16 +946,18 @@ export default function LandingPage() {
           </nav>
           <div className="hidden items-center gap-3 md:flex">
             <a
-              href={APP_URL}
+              href={DISCORD_URL}
+              target="_blank"
+              rel="noreferrer noopener"
               className="px-3 py-1.5 text-sm text-gray-600 transition-colors hover:text-gray-900"
             >
-              Sign in
+              Discord
             </a>
             <a
-              href={APP_URL}
+              href={BETA_URL}
               className="flex items-center gap-1.5 rounded-full bg-emerald-500 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-emerald-600"
             >
-              Get started free <ArrowRight size={14} />
+              Join the beta <ArrowRight size={14} />
             </a>
           </div>
           <button
@@ -980,7 +984,7 @@ export default function LandingPage() {
               <Reveal>
                 <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-violet-100 bg-violet-50 px-4 py-1.5 text-sm font-medium text-violet-700">
                   <Sparkles size={14} />
-                  The AI tutor is live
+                  Now in beta - founding spots open
                 </div>
                 <h1 className="text-4xl font-bold leading-[1.08] tracking-tight text-gray-900 sm:text-5xl md:text-6xl">
                   Learn the words.{" "}
@@ -994,10 +998,10 @@ export default function LandingPage() {
                 </p>
                 <div className="mt-8 flex flex-wrap gap-3">
                   <a
-                    href={APP_URL}
+                    href={BETA_URL}
                     className="inline-flex items-center gap-2 rounded-full bg-emerald-500 px-7 py-3.5 text-base font-semibold text-white shadow-sm transition-colors hover:bg-emerald-600"
                   >
-                    Start for free <ArrowRight size={16} />
+                    Join the beta <ArrowRight size={16} />
                   </a>
                   <a
                     href="#tutor"
@@ -1206,10 +1210,10 @@ export default function LandingPage() {
                 </div>
 
                 <a
-                  href={APP_URL}
+                  href={BETA_URL}
                   className="mt-9 inline-flex items-center gap-2 rounded-full bg-violet-500 px-7 py-3.5 text-base font-semibold text-white shadow-lg shadow-violet-900/40 transition-colors hover:bg-violet-400"
                 >
-                  Try the tutor free <ArrowRight size={16} />
+                  Join the beta <ArrowRight size={16} />
                 </a>
               </Reveal>
             </div>
@@ -1354,7 +1358,7 @@ export default function LandingPage() {
                     </ul>
 
                     <a
-                      href={APP_URL}
+                      href={BETA_URL}
                       className={`mt-auto flex w-full items-center justify-center gap-2 rounded-full py-3 text-sm font-semibold transition-colors ${
                         tier.featured
                           ? "bg-white text-violet-600 hover:bg-violet-50"
@@ -1401,15 +1405,15 @@ export default function LandingPage() {
                     Where every slip tightens your grip.
                   </h2>
                   <p className="mx-auto mt-4 max-w-lg text-base leading-relaxed text-white/80">
-                    Free to start, no credit card. Bring your own key for
-                    unlimited generations and tutor sessions. The AI tutor is
-                    live and waiting for your first mistake.
+                    LexGrip is in beta, and access goes out through our
+                    Discord. Join now and you come in as a founding member -
+                    early access, and a direct say in what we build next.
                   </p>
                   <a
-                    href={APP_URL}
+                    href={BETA_URL}
                     className="mt-8 inline-flex items-center gap-2 rounded-full bg-white px-8 py-4 text-base font-bold text-emerald-600 shadow-sm transition-colors hover:bg-emerald-50"
                   >
-                    Sign up free <ArrowRight size={16} />
+                    Become a founding member <ArrowRight size={16} />
                   </a>
                 </div>
               </div>
@@ -1441,7 +1445,7 @@ export default function LandingPage() {
                   ["#tutor", "AI tutor"],
                   ["#scenarios", "Decks"],
                   ["#pricing", "Pricing"],
-                  [APP_URL, "Sign in"],
+                  [BETA_URL, "Join the beta"],
                 ].map(([href, label]) => (
                   <li key={label}>
                     <a href={href} className="transition-colors hover:text-gray-900">

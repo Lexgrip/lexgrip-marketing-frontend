@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { ArrowRight, ChevronRight } from "lucide-react";
 
-const APP_URL = "https://app.lexgrip.com";
+const BETA_URL = "/beta";
+const DISCORD_URL = "https://discord.gg/yCubCRvjH";
 
 interface Section {
   id: string;
@@ -53,11 +54,16 @@ export default function PolicyLayout({
             <span className="font-semibold text-gray-900">Lexgrip</span>
           </a>
           <div className="flex items-center gap-3">
-            <a href={APP_URL} className="text-sm text-gray-600 hover:text-gray-900 transition-colors px-3 py-1.5">
-              Sign in
+            <a
+              href={DISCORD_URL}
+              target="_blank"
+              rel="noreferrer noopener"
+              className="text-sm text-gray-600 hover:text-gray-900 transition-colors px-3 py-1.5"
+            >
+              Discord
             </a>
-            <a href={APP_URL} className="rounded-full bg-emerald-500 px-4 py-2 text-sm font-semibold text-white hover:bg-emerald-600 transition-colors flex items-center gap-1.5">
-              Get started free <ArrowRight size={14} />
+            <a href={BETA_URL} className="rounded-full bg-emerald-500 px-4 py-2 text-sm font-semibold text-white hover:bg-emerald-600 transition-colors flex items-center gap-1.5">
+              Join the beta <ArrowRight size={14} />
             </a>
           </div>
         </div>
@@ -112,7 +118,7 @@ export default function PolicyLayout({
             <a href="/privacy" className="hover:text-gray-700 transition-colors">Privacy policy</a>
             <a href="/terms" className="hover:text-gray-700 transition-colors">Terms of service</a>
             <a href="mailto:team@lexgrip.com" className="hover:text-gray-700 transition-colors">Contact</a>
-            <a href="https://discord.gg/yCubCRvjH" target="_blank" rel="noreferrer noopener" className="hover:text-gray-700 transition-colors">Discord</a>
+            <a href={DISCORD_URL} target="_blank" rel="noreferrer noopener" className="hover:text-gray-700 transition-colors">Discord</a>
           </div>
         </div>
       </footer>
