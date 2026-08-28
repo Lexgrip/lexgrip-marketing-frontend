@@ -112,6 +112,7 @@ export default function PolicyLayout({
             <a href="/privacy" className="hover:text-gray-700 transition-colors">Privacy policy</a>
             <a href="/terms" className="hover:text-gray-700 transition-colors">Terms of service</a>
             <a href="mailto:team@lexgrip.com" className="hover:text-gray-700 transition-colors">Contact</a>
+            <a href="https://discord.gg/yCubCRvjH" target="_blank" rel="noreferrer noopener" className="hover:text-gray-700 transition-colors">Discord</a>
           </div>
         </div>
       </footer>

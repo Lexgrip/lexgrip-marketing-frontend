@@ -43,6 +43,7 @@ import {
 } from "lucide-react";
 
 const APP_URL = "https://app.lexgrip.com";
+const DISCORD_URL = "https://discord.gg/yCubCRvjH";
 
 /* ─────────────────────────────────────────────────────────
    Reveal-on-scroll helper (client-only, SSR-safe)
@@ -1448,6 +1449,16 @@ export default function LandingPage() {
                     </a>
                   </li>
                 ))}
+                <li>
+                  <a
+                    href={DISCORD_URL}
+                    target="_blank"
+                    rel="noreferrer noopener"
+                    className="transition-colors hover:text-gray-900"
+                  >
+                    Discord community
+                  </a>
+                </li>
               </ul>
             </nav>
 
@@ -1484,6 +1495,14 @@ export default function LandingPage() {
               </a>
               <a href="/terms" className="transition-colors hover:text-gray-700">
                 Terms
+              </a>
+              <a
+                href={DISCORD_URL}
+                target="_blank"
+                rel="noreferrer noopener"
+                className="transition-colors hover:text-gray-700"
+              >
+                Discord
               </a>
             </div>
           </div>
